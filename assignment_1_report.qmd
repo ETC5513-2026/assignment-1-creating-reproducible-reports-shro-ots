@@ -1,5 +1,18 @@
 ---
-title: "Untitled"
-format: html
+title: "ETC5513 - Assignment 1"
+author: "Shruti Pillai"
+format: 
+    html: 
+        toc: true
+        theme: sketchy
+    pdf: 
+        toc: true
+        theme: sketchy
 ---
+```{r libraries, include=FALSE}
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(rmarkdown)
+```
 
