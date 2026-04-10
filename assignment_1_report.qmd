@@ -13,6 +13,7 @@ format:
 library(tidyverse)
 library(knitr)
 library(kableExtra)
+library(lubridate)
 ```
 
 ```{r reading data, include=FALSE}
@@ -26,6 +27,19 @@ The data used in this report is customer-level data which can aid us in understa
 In essence, the data presents us with three possible relationships to be investigated which can be summarised as one research question: How do **marketing_spend**, and customer engagement **(visits)** relate to **purchase_amount**, and does this relationship vary between different customer **segments**? 
 
 ## Dataset Introduction
+```{r dataset inspection}
+head(raw_dataset, 10)
+glimpse(raw_dataset)
+str(raw_dataset)
+names(raw_dataset)
+nrow(raw_dataset)
+ncol(raw_dataset)
+unique(raw_dataset$segment)
+unique(raw_dataset$notes)
+table(raw_dataset$notes, useNA = "ifany")
+```
+
+
 In this section, briefly describe your data (i.e. what the data is measuring or recording) in five sentences maximum using markdown.
 
 To do this, you will need to clean your dataset. Include a description of this cleaning process (not the code) in the report. The code to clean the dataset must be included in the Quarto file, but not in the report.
