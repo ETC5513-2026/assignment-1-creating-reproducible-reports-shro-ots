@@ -140,10 +140,8 @@ ggplot(plot1_df, aes (x = visits, y = purchase_amount, color = segment)) +
     geom_jitter(width = 0.2, alpha = 0.3) +
     geom_smooth(method = "lm", se = FALSE) +
     scale_x_continuous(breaks = 0:13) +
-    labs(x = "Visits", y = "Purchase Amount", colour = "Segment", title = "Number of Visits and Purchase Amount by Segment") + theme_minimal()
+    labs(x = "Visits", y = "Purchase Amount", colour = "Segment", title = "Number of Visits and Purchase Amount by Segment", caption = "Figure 2 - Relationship between the number of visits and purchase amount by segment.") + theme_minimal()
 ```
-
-*Figure 2 - Number of Visits and Purchase Amount by Segment* : This plot shows the relationship between the number of visits and purchase amount. It has linear trend lines to show the overall relationship between the two variables and allow comparison between segments.
 
 ```{r plot 2, echo=FALSE, warning=FALSE, message=FALSE}
 
@@ -153,8 +151,18 @@ plot2_df <- cleaned_dataset |>
 ggplot(plot2_df, aes(x = marketing_spend, y = purchase_amount, color = segment)) +
     geom_point(alpha = 0.3) +
     geom_smooth(method = "lm", se = FALSE) +
-    labs(x = "Marketing Expenditure", y = "Purchase Amount", colour = "Segment", title = "Marketing Expenditure and Purchase Amount by Segment") +
+    labs(x = "Marketing Expenditure", y = "Purchase Amount", colour = "Segment", title = "Marketing Expenditure and Purchase Amount by Segment", caption = "Figure 3 - Relationship between marketing expenditure and purchase amount by segment.") +
     theme_minimal()
 ```
 
-*Figure 3 - Marketing Expenditure and Purchase Amount by Segment* : This figure shows the relationship between marketing expenditure and purchase amount - with trendlines added for the same purpose as in Figure 2.
+```{r inline code, echo=FALSE}
+inline_df <- cleaned_dataset |>
+    filter(!is.na(purchase_amount))
+
+total_rows <- nrow(cleaned_dataset)
+rows_actually_used <- nrow(inline_df)
+median_purchase_amount <- median(inline_df$purchase_amount, na.rm = TRUE)
+median_marketing_spend <- median(inline_df$marketing_spend, na.rm = TRUE)
+```
+
+There were `r total_rows` total rows in the dataset, but only `r rows_actually_used` were used in the analysis. This was because the rows with missing purchase amounts were excluded. Figure 2 shows that as the number of visits increase, the purchase amount also tends to increase, with notable variation across segments. *Enterprise* shows the steepest trend but also the shortest, this was followed by *SMB* and then finally *Consumer* with the lowest gradient of all three slopes. It suggests a stronger increase in purchase amount with additional visits for *SMB* and *Enterprise* in comparison to *Consumer*. Figure 3 indicates that higher marketing expenditure is generally associated with higher purchase amounts, although this relationship only varies marginally across segments. It is improtant to note, however, that  "Marketing Expenditure" tends to continually be slightly higher than "Purchase Amount" across all segments except for *Enterprise*. It seems to indicate that while Marketing strategies are strongly associated with increeased purchasing amounts, it is not being done so in a cost effective manner. The median purchase amount across all segments was found to be $`r median_purchase_amount` in comparison to a median marketing expenditure of $`r median_marketing_spend`. In summary, both these figures suggest support for the research question, indicating that marketing expenditure and customer engagement (visits) are both related to purchase amount, and that this relationship differs across segments.
