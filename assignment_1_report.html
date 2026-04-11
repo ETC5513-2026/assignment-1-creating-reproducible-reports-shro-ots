@@ -24,41 +24,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -87,10 +52,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#research-question" id="toc-research-question" class="nav-link" data-scroll-target="#research-question">Research Question</a></li>
-  <li><a href="#dataset-introduction" id="toc-dataset-introduction" class="nav-link" data-scroll-target="#dataset-introduction">Dataset Introduction</a>
-  <ul class="collapse">
-  <li><a href="#dataset-description" id="toc-dataset-description" class="nav-link" data-scroll-target="#dataset-description">Dataset Description</a></li>
-  </ul></li>
+  <li><a href="#dataset-introduction" id="toc-dataset-introduction" class="nav-link" data-scroll-target="#dataset-introduction">Dataset Introduction</a></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="assignment_1_report.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
@@ -132,92 +94,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="dataset-introduction" class="level2">
 <h2 class="anchored" data-anchor-id="dataset-introduction">Dataset Introduction</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(raw_dataset, <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 × 7
-   customer_id  signup_date marketing_spend visits purchase_amount segment notes
-   &lt;chr&gt;        &lt;chr&gt;                 &lt;dbl&gt;  &lt;dbl&gt;           &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;
- 1 32544804_c0… &lt;NA&gt;                 296.        7            NA   Enterp… N/A  
- 2 32544804_c0… 2025-05-09           253.        6           254.  Enterp… &lt;NA&gt; 
- 3 32544804_c0… 2025-11-06             2.68      0            19.8 SMB     cont…
- 4 32544804_c0… 2025-07-21           190.        6            82.1 SMB     cont…
- 5 32544804_c0… 2025-04-22           126.        3            36.8 SMB     &lt;NA&gt; 
- 6 32544804_c0… 2024-12-08           280.        4            NA   Consum… &lt;NA&gt; 
- 7 32544804_c0… Nov 02, 20…           79.6       3            78.4 SMB     cont…
- 8 32544804_c0… 2025-01-26            71.2       3            80.5 Consum… N/A  
- 9 32544804_c0… 24/06/2025            11.1       0            14.0 Consum… &lt;NA&gt; 
-10 32544804_c0… 2025-11-20           156.        4           189.  Consum… &lt;NA&gt; </code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(raw_dataset)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Rows: 150
-Columns: 7
-$ customer_id     &lt;chr&gt; "32544804_c0001", "32544804_c0002", "32544804_c0003", …
-$ signup_date     &lt;chr&gt; NA, "2025-05-09", "2025-11-06", "2025-07-21", "2025-04…
-$ marketing_spend &lt;dbl&gt; 295.67, 252.77, 2.68, 190.47, 126.42, 280.44, 79.64, 7…
-$ visits          &lt;dbl&gt; 7, 6, 0, 6, 3, 4, 3, 3, 0, 4, 3, 7, 5, 7, 6, 6, 3, 8, …
-$ purchase_amount &lt;dbl&gt; NA, 253.66, 19.79, 82.09, 36.81, NA, 78.40, 80.48, 14.…
-$ segment         &lt;chr&gt; "Enterprise", "Enterprise", "SMB", "SMB", "SMB", "Cons…
-$ notes           &lt;chr&gt; "N/A", NA, "contacted", "contacted", NA, NA, "contacte…</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(raw_dataset)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>spc_tbl_ [150 × 7] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
- $ customer_id    : chr [1:150] "32544804_c0001" "32544804_c0002" "32544804_c0003" "32544804_c0004" ...
- $ signup_date    : chr [1:150] NA "2025-05-09" "2025-11-06" "2025-07-21" ...
- $ marketing_spend: num [1:150] 295.67 252.77 2.68 190.47 126.42 ...
- $ visits         : num [1:150] 7 6 0 6 3 4 3 3 0 4 ...
- $ purchase_amount: num [1:150] NA 253.7 19.8 82.1 36.8 ...
- $ segment        : chr [1:150] "Enterprise" "Enterprise" "SMB" "SMB" ...
- $ notes          : chr [1:150] "N/A" NA "contacted" "contacted" ...
- - attr(*, "spec")=
-  .. cols(
-  ..   customer_id = col_character(),
-  ..   signup_date = col_character(),
-  ..   marketing_spend = col_double(),
-  ..   visits = col_double(),
-  ..   purchase_amount = col_double(),
-  ..   segment = col_character(),
-  ..   notes = col_character()
-  .. )
- - attr(*, "problems")=&lt;externalptr&gt; </code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(raw_dataset)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "customer_id"     "signup_date"     "marketing_spend" "visits"         
-[5] "purchase_amount" "segment"         "notes"          </code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(raw_dataset)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 150</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(raw_dataset)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 7</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(raw_dataset<span class="sc">$</span>segment)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Enterprise" "SMB"        "Consumer"  </code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(raw_dataset<span class="sc">$</span>notes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "N/A"         NA            "contacted"   "returned"    "no response"</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(raw_dataset<span class="sc">$</span>notes, <span class="at">useNA =</span> <span class="st">"ifany"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-  contacted         N/A no response    returned        &lt;NA&gt; 
-         25          13           3          13          96 </code></pre>
-</div>
-</div>
-<p>In this section, briefly describe your data (i.e.&nbsp;what the data is measuring or recording) in five sentences maximum using markdown.</p>
-<p>To do this, you will need to clean your dataset. Include a description of this cleaning process (not the code) in the report. The code to clean the dataset must be included in the Quarto file, but not in the report.</p>
-<section id="dataset-description" class="level3">
-<h3 class="anchored" data-anchor-id="dataset-description">Dataset Description</h3>
-<p>Create a subsection that will report details about your data. You must include the size of the dataset such as the number of observations, variables and variable types. You must include a sentence that includes inline R code describing the number of variables and observations in your dataset.</p>
-<p>Create two other summaries of your data, one as a plot and one as a table. Examples include counts of certain variables in groups, or summary statistics of numeric variables. Make sure these summaries are providing a broader context to the report and are not just arbitrary commentaries.</p>
-</section>
 </section>
 <section id="results" class="level2">
 <h2 class="anchored" data-anchor-id="results">Results</h2>

@@ -27,7 +27,7 @@ The data used in this report is customer-level data which can aid us in understa
 In essence, the data presents us with three possible relationships to be investigated which can be summarised as one research question: How do **marketing_spend**, and customer engagement **(visits)** relate to **purchase_amount**, and does this relationship vary between different customer **segments**? 
 
 ## Dataset Introduction
-```{r dataset inspection}
+```{r dataset inspection, include=FALSE}
 head(raw_dataset, 10)
 glimpse(raw_dataset)
 str(raw_dataset)
@@ -37,17 +37,40 @@ ncol(raw_dataset)
 unique(raw_dataset$segment)
 unique(raw_dataset$notes)
 table(raw_dataset$notes, useNA = "ifany")
+anyDuplicated(raw_dataset)
+```
+
+```{r dataset cleaning, include=FALSE}
+#Standardised notes section and checked if changes were correctly applied.
+
+cleaned_dataset <- raw_dataset |>
+    mutate(
+        notes = na_if(notes, "N/A")
+    )
+table(cleaned_dataset$notes, useNA = "ifany")
+
+#Standardised date format and checked if changes were correctly applied. Since this category won't be used in the analysis, it hasn't been perfectly cleaned.
+
+cleaned_dataset <- cleaned_dataset |>
+    mutate(
+        signup_date = parse_date_time(signup_date, orders = c("ymd", "B d, Y", "dmy", "b d, Y"))  
+    |> as.Date()
+    )
+table(cleaned_dataset$signup_date, useNA = "ifany")
+
+#Converted visits from numeric to integer and checked if changes were correctly applied.
+
+cleaned_dataset <- cleaned_dataset |>
+    mutate(
+        visits = as.integer(visits)
+    )
+str(cleaned_dataset$visits)
+
+#Overall check
+str(cleaned_dataset)
 ```
 
 
-In this section, briefly describe your data (i.e. what the data is measuring or recording) in five sentences maximum using markdown.
-
-To do this, you will need to clean your dataset. Include a description of this cleaning process (not the code) in the report. The code to clean the dataset must be included in the Quarto file, but not in the report.
-
-### Dataset Description
-Create a subsection that will report details about your data. You must include the size of the dataset such as the number of observations, variables and variable types. You must include a sentence that includes inline R code describing the number of variables and observations in your dataset.
-
-Create two other summaries of your data, one as a plot and one as a table. Examples include counts of certain variables in groups, or summary statistics of numeric variables. Make sure these summaries are providing a broader context to the report and are not just arbitrary commentaries.
 
 ## Results
 Using visualisations of the data, discuss the answer to your research questions. You must:
