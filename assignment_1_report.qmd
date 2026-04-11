@@ -150,7 +150,6 @@ ggplot(plot2_df, aes(x = marketing_spend, y = purchase_amount, color = segment))
     labs(x = "Marketing Expenditure", y = "Purchase Amount", colour = "Segment", title = "Marketing Expenditure and Purchase Amount by Segment") +
     theme_minimal()
 ```
-
 ```{r inline code, echo=FALSE}
 inline_df <- cleaned_dataset |>
     filter(!is.na(purchase_amount))
@@ -161,4 +160,5 @@ median_purchase_amount <- median(inline_df$purchase_amount, na.rm = TRUE)
 median_marketing_spend <- median(inline_df$marketing_spend, na.rm = TRUE)
 ```
 
+### Explanation
 There were `r total_rows` total rows in the dataset, but only `r rows_actually_used` were used in the analysis. This was because the rows with missing purchase amounts were excluded. @fig-plot-1 shows that as the number of visits increase, the purchase amount also tends to increase, with notable variation across segments. *Enterprise* shows the steepest trend but also the shortest, this was followed by *SMB* and then finally *Consumer* with the lowest gradient of all three slopes. It suggests that there is a stronger increase in purchase amount which corresponds with additional visits for *SMB* and *Enterprise* in comparison to *Consumer*. @fig-plot-2 indicates that higher marketing expenditure is generally associated with higher purchase amounts, although this relationship only varies marginally across segments. It is important to note, however, that  "Marketing Expenditure" tends to continually (but marginally) be higher than "Purchase Amount" across all segments except for *Enterprise*. It seems to indicate that while Marketing strategies are strongly associated with increased purchasing amounts, it is not being done so in a cost effective manner. The median purchase amount across all segments was found to be $`r median_purchase_amount` in comparison to a median marketing expenditure of $`r median_marketing_spend`. In summary, both these figures suggest support for the research question; indicating that marketing expenditure and customer engagement (visits) are both positively related to purchase amount, and that this relationship differs across segments.
