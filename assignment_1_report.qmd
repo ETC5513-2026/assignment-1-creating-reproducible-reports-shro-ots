@@ -70,6 +70,7 @@ str(cleaned_dataset$visits)
 str(cleaned_dataset)
 ```
 
+Investigation shows that the data consists of customer records that assign each individual their own unique **customer_id**. Each customer has their **marketing_spend** (marketing expenditure), **purchase_amount**, **segment**, **signup_date**, **notes** on interactions and number of **visits** (engagement count) recorded. The segment variable splits customers into three different groups which allows for comparison: **consumer**, **smb** and **enterprise**. The signup_date and notes variables, while not relevant to this report, indicate when i customer signed up and sore simple notes about interactions with the customer respectively. To summarise, the dataset contains on how marketing and engagemnt relate to purchasing behaviour amongst individuals. 
 
 
 ## Results
