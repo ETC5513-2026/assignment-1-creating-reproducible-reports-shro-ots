@@ -87,7 +87,47 @@ In order to clean the dataset, the following process was implemented:
 
     c. **visits** were converted from numeric to integer using the `as.integer()`. This was done to ensure that the data type properly reflected the nature of the variable.
 
+### Dataset Description
+The dataset has a total of `r nrow(cleaned_dataset)` observations and `r ncol(cleaned_dataset)` variables. Variable types include:
 
+* **numeric**
+    * marketing_spend
+    * purchase_amount
+* **integer**
+    * visits
+* **character**
+    * customer_id
+    * segment
+    * notes
+* **Date**
+    * signup_date
+
+
+```{r summary stats table, echo=FALSE}
+cleaned_dataset |>
+    group_by(segment) |>
+    summarise(
+        total_customers = n(),
+        median_marketing_spend = median(marketing_spend, na.rm = TRUE),
+        median_purchase_amount = median(purchase_amount, na.rm = TRUE),
+        median_visits = median(visits, na.rm = TRUE),
+        missing_purchases = sum(is.na(purchase_amount))
+    ) |>
+    kable(digits = 2)
+```
+
+*Table 1 - Summary Statistics by Segment* : This table shows the total number of customers and median of marketing spend, purchase amount, and visits. It also shows the number of missing purchases for each segment.
+
+```{r summary plot 1, echo=FALSE}
+ggplot(cleaned_dataset, aes(x = segment)) + geom_bar(fill = "steelblue") +
+    labs(
+        title = "Customer Count by Segment",
+        x = "Segment",
+        y = "Customer Count"
+        )
+```
+
+*Figure 1 - Customer Count by Segment* : This graph shows the number of customers in each segment.
 
 ## Results
 Using visualisations of the data, discuss the answer to your research questions. You must:
