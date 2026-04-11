@@ -118,7 +118,7 @@ cleaned_dataset |>
 
 *Table 1 - Summary Statistics by Segment* : This table shows the total number of customers and median of marketing spend, purchase amount, and visits. It also shows the number of missing purchases for each segment.
 
-```{r summary plot 1, echo=FALSE}
+```{r summary plot, echo=FALSE}
 ggplot(cleaned_dataset, aes(x = segment)) + geom_bar(fill = "steelblue") +
     labs(
         title = "Customer Count by Segment",
@@ -130,8 +130,31 @@ ggplot(cleaned_dataset, aes(x = segment)) + geom_bar(fill = "steelblue") +
 *Figure 1 - Customer Count by Segment* : This graph shows the number of customers in each segment.
 
 ## Results
-Using visualisations of the data, discuss the answer to your research questions. You must:
 
-Create 2 figures maximum of your data that will help you answer your research question. Each figure must have a caption using the options inside the R code chunk. Create the figures using the ggplot2 package.
-The figures must have captions, and must be referred to in the text of the results section.
-As well as the figures, you must also include a paragraph describing these results and how they link back to your research question. Remember, you can use inline code to extract certain numbers automatically.
+```{r plot 1, echo=FALSE, warning=FALSE, message=FALSE}
+
+plot1_df <- cleaned_dataset |>
+    filter(!is.na(purchase_amount))
+
+ggplot(plot1_df, aes (x = visits, y = purchase_amount, color = segment)) + 
+    geom_jitter(width = 0.2, alpha = 0.3) +
+    geom_smooth(method = "lm", se = FALSE) +
+    scale_x_continuous(breaks = 0:13) +
+    labs(x = "Visits", y = "Purchase Amount", colour = "Segment", title = "Number of Visits and Purchase Amount by Segment") + theme_minimal()
+```
+
+*Figure 2 - Number of Visits and Purchase Amount by Segment* : This plot shows the relationship between the number of visits and purchase amount. It has linear trend lines to show the overall relationship between the two variables and allow comparison between segments.
+
+```{r plot 2, echo=FALSE, warning=FALSE, message=FALSE}
+
+plot2_df <- cleaned_dataset |>
+    filter(!is.na(purchase_amount))
+
+ggplot(plot2_df, aes(x = marketing_spend, y = purchase_amount, color = segment)) +
+    geom_point(alpha = 0.3) +
+    geom_smooth(method = "lm", se = FALSE) +
+    labs(x = "Marketing Expenditure", y = "Purchase Amount", colour = "Segment", title = "Marketing Expenditure and Purchase Amount by Segment") +
+    theme_minimal()
+```
+
+*Figure 3 - Marketing Expenditure and Purchase Amount by Segment* : This figure shows the relationship between marketing expenditure and purchase amount - with trendlines added for the same purpose as in Figure 2.
