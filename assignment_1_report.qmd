@@ -134,7 +134,12 @@ ggplot(plot1_df, aes (x = visits, y = purchase_amount, color = segment)) +
     geom_jitter(width = 0.2, alpha = 0.3) +
     geom_smooth(method = "lm", se = FALSE) +
     scale_x_continuous(breaks = 0:13) +
-    labs(x = "Visits", y = "Purchase Amount", colour = "Segment", title = "Number of Visits and Purchase Amount by Segment") + theme_minimal()
+    labs(x = "Visits", 
+    y = "Purchase Amount", 
+    colour = "Segment", 
+    title = "Number of Visits and Purchase Amount by Segment"
+    ) + 
+theme_minimal()
 ```
 
 ```{r plot 2, echo=FALSE, warning=FALSE, message=FALSE}
@@ -147,7 +152,12 @@ plot2_df <- cleaned_dataset |>
 ggplot(plot2_df, aes(x = marketing_spend, y = purchase_amount, color = segment)) +
     geom_point(alpha = 0.3) +
     geom_smooth(method = "lm", se = FALSE) +
-    labs(x = "Marketing Expenditure", y = "Purchase Amount", colour = "Segment", title = "Marketing Expenditure and Purchase Amount by Segment") +
+    labs(
+        x = "Marketing Expenditure", 
+        y = "Purchase Amount", 
+        colour = "Segment", 
+        title = "Marketing Expenditure and Purchase Amount by Segment"
+        ) +
     theme_minimal()
 ```
 ```{r inline code, echo=FALSE}
