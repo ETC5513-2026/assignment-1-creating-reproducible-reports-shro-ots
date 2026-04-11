@@ -20,7 +20,7 @@ raw_dataset <- read_csv("data/32544804_Shruti Pillai.csv")
 ```
 
 ## Introduction
-The data used in this report can aid us in understanding where to focus marketing efforts by showing what actually drives purchasing behaviour. To optimise purchasing outcomes relative to marketing expenditure, it is essential to quantify the relationship between **marketing_spend**, **purchase_amount**, and customer engagement **(visits)**. Key patterns will be summarised using visualisations and tables in order to support interpretation. Therefore, this report will be presented as a reproducible quarto document which aims to support the research question.
+The data used in this report can aid us in understanding where to focus marketing efforts by showing what actually drives purchasing behaviour. To optimise purchasing outcomes relative to marketing expenditure, it is essential to quantify the relationship between **marketing_spend**, **purchase_amount**, and customer engagement **(visits)**. Key patterns will be summarised using visualisations and tables in order to support interpretation. Therefore, this report will be presented as a reproducible document which aims to support the research question.
 
 ## Research Question
 In essence, the data presents us with three possible relationships to be investigated which can be summarised as one research question: How do **marketing_spend**, and customer engagement **(visits)** relate to **purchase_amount**, and does this relationship vary between different customer **segments**? 
