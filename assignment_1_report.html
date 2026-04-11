@@ -34,10 +34,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="assignment_1_report_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="assignment_1_report_files/libs/quarto-html/anchor.min.js"></script>
 <link href="assignment_1_report_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="assignment_1_report_files/libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="assignment_1_report_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="assignment_1_report_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="assignment_1_report_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="assignment_1_report_files/libs/bootstrap/bootstrap-b29cae2695b69093d9f3edcf63f8520e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="assignment_1_report_files/libs/bootstrap/bootstrap-becdbe77d0246c4e9e228b17526a6e8d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
@@ -89,7 +89,7 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>The data used in this report is customer-level data which can aid us in understanding where to focus marketing efforts by showing us what actually drives purchasing behaviour. To optimise purchasing outcomes relative to marketing expenditure, it is essential to quantify the relationship between <strong>marketing_spend</strong>, <strong>purchase_amount</strong>, and customer engagement <strong>(visits)</strong>. Key patterns will be summarised using visualisations and tables in order to support interpretation. Therefore, this report will be presented as a reproducible quarto document which aims to support the research question.</p>
+<p>The data used in this report can aid us in understanding where to focus marketing efforts by showing what actually drives purchasing behaviour. To optimise purchasing outcomes relative to marketing expenditure, it is essential to quantify the relationship between <strong>marketing_spend</strong>, <strong>purchase_amount</strong>, and customer engagement <strong>(visits)</strong>. Key patterns will be summarised using visualisations and tables in order to support interpretation. Therefore, this report will be presented as a reproducible quarto document which aims to support the research question.</p>
 </section>
 <section id="research-question" class="level2">
 <h2 class="anchored" data-anchor-id="research-question">Research Question</h2>
@@ -97,18 +97,18 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="dataset-introduction" class="level2">
 <h2 class="anchored" data-anchor-id="dataset-introduction">Dataset Introduction</h2>
-<p>Investigation shows that the data consists of customer records that assign each individual their own unique <strong>customer_id</strong>. Each customer has their <strong>marketing_spend</strong> (marketing expenditure), <strong>purchase_amount</strong>, <strong>segment</strong>, <strong>signup_date</strong>, <strong>notes</strong> on interactions and number of <strong>visits</strong> (engagement count) recorded. The segment variable splits customers into three different groups which allows for comparison: <strong>consumer</strong>, <strong>smb</strong> and <strong>enterprise</strong>. The signup_date and notes variables, while not relevant to this report, indicate when i customer signed up and sore simple notes about interactions with the customer respectively. To summarise, the dataset contains on how marketing and engagemnt relate to purchasing behaviour amongst individuals.</p>
+<p>Investigation shows that the data consists of customer records that assign each individual their own unique <strong>customer_id</strong>. Each customer has their <strong>marketing_spend</strong> (marketing expenditure), <strong>purchase_amount</strong>, <strong>segment</strong>, <strong>signup_date</strong>, <strong>notes</strong> on interactions and number of <strong>visits</strong> (engagement count) recorded. The segment variable splits customers into three different groups which allows for comparison: <strong>Consumer</strong>, <strong>SMB</strong> and <strong>Enterprise</strong>. The <strong>signup_date</strong> and <strong>notes</strong> variables, while not relevant to this report, indicate when a customer signed up and some simple notes about interactions with each customer respectively. To summarise, the dataset contains information on how marketing and engagement relate to purchasing behaviour amongst individuals.</p>
 <section id="cleaning-process-summary" class="level4">
 <h4 class="anchored" data-anchor-id="cleaning-process-summary">Cleaning Process Summary</h4>
 <p>In order to clean the dataset, the following process was implemented:</p>
 <ol type="1">
-<li><p>The data was thorougly inspected using functions such as <code>head()</code>, <code>glimpse()</code>, <code>str()</code>, <code>names()</code>, <code>nrow()</code>, <code>ncol()</code>, <code>unique()</code>, and <code>table()</code> to understand the structure of the data, identify any duplicates or inconsistencies.</p></li>
+<li><p>The data was thoroughly inspected using functions such as <code>head()</code>, <code>glimpse()</code>, <code>str()</code>, <code>names()</code>, <code>nrow()</code>, <code>ncol()</code>, <code>unique()</code>, and <code>table()</code> to understand the structure of the data and identify any duplicates or inconsistencies.</p></li>
 <li><p>From this, <strong>notes</strong> and <strong>signup_date</strong> were found to be inconsistent and needed to be cleaned, while <strong>visits</strong>, not necessarily needing to be altered, would be smoother if changed from numeric to integer.</p></li>
 <li><p>The following steps were saved into a new dataset called <code>cleaned_dataset</code> to ensure that the original data was preserved and could be referred back to if needed:</p>
 <ol type="a">
 <li><p><strong>notes</strong> were cleaned by standardising the entries to NA where they were previously recorded as a mix of “N/A” and the expected NA. This was done using the <code>na_if()</code> function.</p></li>
 <li><p><strong>signup_date</strong> was cleaned by standardising the date format using the <code>parse_date_time()</code> function from the lubridate package. It allowed for multiple formats to be parsed and converted to a consistent date format. There were around 3 entries that couldn’t be parsed but were left as is since the variable isn’t a category of interest.</p></li>
-<li><p><strong>visits</strong> were converted from numeric to integer using the <code>as.integer()</code>. This was done to ensure that the data type properly reflected the nature of the variable.</p></li>
+<li><p><strong>visits</strong> were converted from numeric to integer using <code>as.integer()</code>. This was done to ensure that the data type properly reflected the nature of the variable.</p></li>
 </ol></li>
 </ol>
 </section>
@@ -116,29 +116,20 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="dataset-description">Dataset Description</h3>
 <p>The dataset has a total of 150 observations and 7 variables. Variable types include:</p>
 <ul>
-<li><strong>numeric</strong>
-<ul>
-<li>marketing_spend</li>
-<li>purchase_amount</li>
-</ul></li>
-<li><strong>integer</strong>
-<ul>
-<li>visits</li>
-</ul></li>
-<li><strong>character</strong>
-<ul>
-<li>customer_id</li>
-<li>segment</li>
-<li>notes</li>
-</ul></li>
-<li><strong>Date</strong>
-<ul>
-<li>signup_date</li>
-</ul></li>
+<li><strong>numeric</strong> : marketing_spend and purchase_amount</li>
+<li><strong>integer</strong> : visits</li>
+<li><strong>character</strong> : customer_id, segment, and notes</li>
+<li><strong>Date</strong> : signup_date</li>
 </ul>
 <div class="cell">
+<div id="tbl-summary-stats" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-summary-stats-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Summary Statistics by Segment
+</figcaption>
+<div aria-describedby="tbl-summary-stats-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="cell caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 10%">
 <col style="width: 15%">
@@ -186,40 +177,56 @@ ul.task-list li input[type="checkbox"] {
 </table>
 </div>
 </div>
-<p><em>Table 1 - Summary Statistics by Segment</em> : This table shows the total number of customers and median of marketing spend, purchase amount, and visits. It also shows the number of missing purchases for each segment.</p>
+</figure>
+</div>
+</div>
 <div class="cell">
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="assignment_1_report_files/figure-html/summary%20plot-1.png" class="img-fluid figure-img" width="672"></p>
+<div id="fig-summary-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-summary-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assignment_1_report_files/figure-html/fig-summary-plot-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-summary-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Customer Count by Segment
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p><em>Figure 1 - Customer Count by Segment</em> : This graph shows the number of customers in each segment.</p>
 </section>
 </section>
 <section id="results" class="level2">
 <h2 class="anchored" data-anchor-id="results">Results</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="assignment_1_report_files/figure-html/plot%201-1.png" class="img-fluid figure-img" width="672"></p>
+<div id="fig-plot-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-plot-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assignment_1_report_files/figure-html/fig-plot-1-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-plot-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Relationship between the number of visits and purchase amount by segment.
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="assignment_1_report_files/figure-html/plot%202-1.png" class="img-fluid figure-img" width="672"></p>
+<div id="fig-plot-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-plot-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assignment_1_report_files/figure-html/fig-plot-2-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-plot-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Relationship between marketing expenditure and purchase amount by segment.
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>There were 150 total rows in the dataset, but only 132 were used in the analysis. This was because the rows with missing purchase amounts were excluded. Figure 2 shows that as the number of visits increase, the purchase amount also tends to increase, with notable variation across segments. <em>Enterprise</em> shows the steepest trend but also the shortest, this was followed by <em>SMB</em> and then finally <em>Consumer</em> with the lowest gradient of all three slopes. It suggests a stronger increase in purchase amount with additional visits for <em>SMB</em> and <em>Enterprise</em> in comparison to <em>Consumer</em>. Figure 3 indicates that higher marketing expenditure is generally associated with higher purchase amounts, although this relationship only varies marginally across segments. It is improtant to note, however, that “Marketing Expenditure” tends to continually be slightly higher than “Purchase Amount” across all segments except for <em>Enterprise</em>. It seems to indicate that while Marketing strategies are strongly associated with increeased purchasing amounts, it is not being done so in a cost effective manner. The median purchase amount across all segments was found to be $116.94 in comparison to a median marketing expenditure of $131.825. In summary, both these figures suggest support for the research question, indicating that marketing expenditure and customer engagement (visits) are both related to purchase amount, and that this relationship differs across segments.</p>
+<p>There were 150 total rows in the dataset, but only 132 were used in the analysis. This was because the rows with missing purchase amounts were excluded. <a href="#fig-plot-1" class="quarto-xref">Figure&nbsp;2</a> shows that as the number of visits increase, the purchase amount also tends to increase, with notable variation across segments. <em>Enterprise</em> shows the steepest trend but also the shortest, this was followed by <em>SMB</em> and then finally <em>Consumer</em> with the lowest gradient of all three slopes. It suggests that there is a stronger increase in purchase amount which corresponds with additional visits for <em>SMB</em> and <em>Enterprise</em> in comparison to <em>Consumer</em>. <a href="#fig-plot-2" class="quarto-xref">Figure&nbsp;3</a> indicates that higher marketing expenditure is generally associated with higher purchase amounts, although this relationship only varies marginally across segments. It is important to note, however, that “Marketing Expenditure” tends to continually (but marginally) be higher than “Purchase Amount” across all segments except for <em>Enterprise</em>. It seems to indicate that while Marketing strategies are strongly associated with increased purchasing amounts, it is not being done so in a cost effective manner. The median purchase amount across all segments was found to be $116.94 in comparison to a median marketing expenditure of $131.825. In summary, both these figures suggest support for the research question; indicating that marketing expenditure and customer engagement (visits) are both positively related to purchase amount, and that this relationship differs across segments.</p>
 </section>
 
 </main>

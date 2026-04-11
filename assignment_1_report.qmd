@@ -4,10 +4,9 @@ author: "Shruti Pillai"
 format: 
     html: 
         toc: true
-        theme: solar
+        theme: minty
     pdf: 
         toc: true
-        theme: solar
 ---
 ```{r libraries, include=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
@@ -21,7 +20,7 @@ raw_dataset <- read_csv("data/32544804_Shruti Pillai.csv")
 ```
 
 ## Introduction
-The data used in this report is customer-level data which can aid us in understanding where to focus marketing efforts by showing us what actually drives purchasing behaviour. To optimise purchasing outcomes relative to marketing expenditure, it is essential to quantify the relationship between **marketing_spend**, **purchase_amount**, and customer engagement **(visits)**. Key patterns will be summarised using visualisations and tables in order to support interpretation. Therefore, this report will be presented as a reproducible quarto document which aims to support the research question.
+The data used in this report can aid us in understanding where to focus marketing efforts by showing what actually drives purchasing behaviour. To optimise purchasing outcomes relative to marketing expenditure, it is essential to quantify the relationship between **marketing_spend**, **purchase_amount**, and customer engagement **(visits)**. Key patterns will be summarised using visualisations and tables in order to support interpretation. Therefore, this report will be presented as a reproducible quarto document which aims to support the research question.
 
 ## Research Question
 In essence, the data presents us with three possible relationships to be investigated which can be summarised as one research question: How do **marketing_spend**, and customer engagement **(visits)** relate to **purchase_amount**, and does this relationship vary between different customer **segments**? 
@@ -70,12 +69,12 @@ str(cleaned_dataset$visits)
 str(cleaned_dataset)
 ```
 
-Investigation shows that the data consists of customer records that assign each individual their own unique **customer_id**. Each customer has their **marketing_spend** (marketing expenditure), **purchase_amount**, **segment**, **signup_date**, **notes** on interactions and number of **visits** (engagement count) recorded. The segment variable splits customers into three different groups which allows for comparison: **consumer**, **smb** and **enterprise**. The signup_date and notes variables, while not relevant to this report, indicate when i customer signed up and sore simple notes about interactions with the customer respectively. To summarise, the dataset contains on how marketing and engagemnt relate to purchasing behaviour amongst individuals. 
+Investigation shows that the data consists of customer records that assign each individual their own unique **customer_id**. Each customer has their **marketing_spend** (marketing expenditure), **purchase_amount**, **segment**, **signup_date**, **notes** on interactions and number of **visits** (engagement count) recorded. The segment variable splits customers into three different groups which allows for comparison: **Consumer**, **SMB** and **Enterprise**. The **signup_date** and **notes** variables, while not relevant to this report, indicate when a customer signed up and some simple notes about interactions with each customer respectively. To summarise, the dataset contains information on how marketing and engagement relate to purchasing behaviour amongst individuals. 
 
 #### Cleaning Process Summary
 In order to clean the dataset, the following process was implemented: 
 
-1. The data was thorougly inspected using functions such as `head()`, `glimpse()`, `str()`, `names()`, `nrow()`, `ncol()`, `unique()`, and `table()` to understand the structure of the data, identify any duplicates or inconsistencies.
+1. The data was thoroughly inspected using functions such as `head()`, `glimpse()`, `str()`, `names()`, `nrow()`, `ncol()`, `unique()`, and `table()` to understand the structure of the data and identify any duplicates or inconsistencies.
 
 2. From this, **notes** and **signup_date** were found to be inconsistent and needed to be cleaned, while **visits**, not necessarily needing to be altered, would be smoother if changed from numeric to integer.
 
@@ -85,25 +84,20 @@ In order to clean the dataset, the following process was implemented:
 
     b. **signup_date** was cleaned by standardising the date format using the `parse_date_time()` function from the lubridate package. It allowed for multiple formats to be parsed and converted to a consistent date format. There were around 3 entries that couldn't be parsed but were left as is since the variable isn't a category of interest.
 
-    c. **visits** were converted from numeric to integer using the `as.integer()`. This was done to ensure that the data type properly reflected the nature of the variable.
+    c. **visits** were converted from numeric to integer using `as.integer()`. This was done to ensure that the data type properly reflected the nature of the variable.
 
 ### Dataset Description
 The dataset has a total of `r nrow(cleaned_dataset)` observations and `r ncol(cleaned_dataset)` variables. Variable types include:
 
-* **numeric**
-    * marketing_spend
-    * purchase_amount
-* **integer**
-    * visits
-* **character**
-    * customer_id
-    * segment
-    * notes
-* **Date**
-    * signup_date
+* **numeric** : marketing_spend and purchase_amount
+* **integer** : visits
+* **character** : customer_id, segment, and notes
+* **Date** : signup_date
 
 
 ```{r summary stats table, echo=FALSE}
+#| label: tbl-summary-stats
+#| tbl-cap: "Summary Statistics by Segment"
 cleaned_dataset |>
     group_by(segment) |>
     summarise(
@@ -116,9 +110,9 @@ cleaned_dataset |>
     kable(digits = 2)
 ```
 
-*Table 1 - Summary Statistics by Segment* : This table shows the total number of customers and median of marketing spend, purchase amount, and visits. It also shows the number of missing purchases for each segment.
-
 ```{r summary plot, echo=FALSE}
+#| label: fig-summary-plot
+#| fig-cap: "Customer Count by Segment"
 ggplot(cleaned_dataset, aes(x = segment)) + geom_bar(fill = "steelblue") +
     labs(
         title = "Customer Count by Segment",
@@ -127,11 +121,11 @@ ggplot(cleaned_dataset, aes(x = segment)) + geom_bar(fill = "steelblue") +
         )
 ```
 
-*Figure 1 - Customer Count by Segment* : This graph shows the number of customers in each segment.
-
 ## Results
 
 ```{r plot 1, echo=FALSE, warning=FALSE, message=FALSE}
+#| label: fig-plot-1
+#| fig-cap: "Relationship between the number of visits and purchase amount by segment."
 
 plot1_df <- cleaned_dataset |>
     filter(!is.na(purchase_amount))
@@ -140,10 +134,12 @@ ggplot(plot1_df, aes (x = visits, y = purchase_amount, color = segment)) +
     geom_jitter(width = 0.2, alpha = 0.3) +
     geom_smooth(method = "lm", se = FALSE) +
     scale_x_continuous(breaks = 0:13) +
-    labs(x = "Visits", y = "Purchase Amount", colour = "Segment", title = "Number of Visits and Purchase Amount by Segment", caption = "Figure 2 - Relationship between the number of visits and purchase amount by segment.") + theme_minimal()
+    labs(x = "Visits", y = "Purchase Amount", colour = "Segment", title = "Number of Visits and Purchase Amount by Segment") + theme_minimal()
 ```
 
 ```{r plot 2, echo=FALSE, warning=FALSE, message=FALSE}
+#| label: fig-plot-2
+#| fig-cap: "Relationship between marketing expenditure and purchase amount by segment."
 
 plot2_df <- cleaned_dataset |>
     filter(!is.na(purchase_amount))
@@ -151,7 +147,7 @@ plot2_df <- cleaned_dataset |>
 ggplot(plot2_df, aes(x = marketing_spend, y = purchase_amount, color = segment)) +
     geom_point(alpha = 0.3) +
     geom_smooth(method = "lm", se = FALSE) +
-    labs(x = "Marketing Expenditure", y = "Purchase Amount", colour = "Segment", title = "Marketing Expenditure and Purchase Amount by Segment", caption = "Figure 3 - Relationship between marketing expenditure and purchase amount by segment.") +
+    labs(x = "Marketing Expenditure", y = "Purchase Amount", colour = "Segment", title = "Marketing Expenditure and Purchase Amount by Segment") +
     theme_minimal()
 ```
 
@@ -165,4 +161,4 @@ median_purchase_amount <- median(inline_df$purchase_amount, na.rm = TRUE)
 median_marketing_spend <- median(inline_df$marketing_spend, na.rm = TRUE)
 ```
 
-There were `r total_rows` total rows in the dataset, but only `r rows_actually_used` were used in the analysis. This was because the rows with missing purchase amounts were excluded. Figure 2 shows that as the number of visits increase, the purchase amount also tends to increase, with notable variation across segments. *Enterprise* shows the steepest trend but also the shortest, this was followed by *SMB* and then finally *Consumer* with the lowest gradient of all three slopes. It suggests a stronger increase in purchase amount with additional visits for *SMB* and *Enterprise* in comparison to *Consumer*. Figure 3 indicates that higher marketing expenditure is generally associated with higher purchase amounts, although this relationship only varies marginally across segments. It is improtant to note, however, that  "Marketing Expenditure" tends to continually be slightly higher than "Purchase Amount" across all segments except for *Enterprise*. It seems to indicate that while Marketing strategies are strongly associated with increeased purchasing amounts, it is not being done so in a cost effective manner. The median purchase amount across all segments was found to be $`r median_purchase_amount` in comparison to a median marketing expenditure of $`r median_marketing_spend`. In summary, both these figures suggest support for the research question, indicating that marketing expenditure and customer engagement (visits) are both related to purchase amount, and that this relationship differs across segments.
+There were `r total_rows` total rows in the dataset, but only `r rows_actually_used` were used in the analysis. This was because the rows with missing purchase amounts were excluded. @fig-plot-1 shows that as the number of visits increase, the purchase amount also tends to increase, with notable variation across segments. *Enterprise* shows the steepest trend but also the shortest, this was followed by *SMB* and then finally *Consumer* with the lowest gradient of all three slopes. It suggests that there is a stronger increase in purchase amount which corresponds with additional visits for *SMB* and *Enterprise* in comparison to *Consumer*. @fig-plot-2 indicates that higher marketing expenditure is generally associated with higher purchase amounts, although this relationship only varies marginally across segments. It is important to note, however, that  "Marketing Expenditure" tends to continually (but marginally) be higher than "Purchase Amount" across all segments except for *Enterprise*. It seems to indicate that while Marketing strategies are strongly associated with increased purchasing amounts, it is not being done so in a cost effective manner. The median purchase amount across all segments was found to be $`r median_purchase_amount` in comparison to a median marketing expenditure of $`r median_marketing_spend`. In summary, both these figures suggest support for the research question; indicating that marketing expenditure and customer engagement (visits) are both positively related to purchase amount, and that this relationship differs across segments.
