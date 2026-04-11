@@ -95,6 +95,20 @@ ul.task-list li input[type="checkbox"] {
 <section id="dataset-introduction" class="level2">
 <h2 class="anchored" data-anchor-id="dataset-introduction">Dataset Introduction</h2>
 <p>Investigation shows that the data consists of customer records that assign each individual their own unique <strong>customer_id</strong>. Each customer has their <strong>marketing_spend</strong> (marketing expenditure), <strong>purchase_amount</strong>, <strong>segment</strong>, <strong>signup_date</strong>, <strong>notes</strong> on interactions and number of <strong>visits</strong> (engagement count) recorded. The segment variable splits customers into three different groups which allows for comparison: <strong>consumer</strong>, <strong>smb</strong> and <strong>enterprise</strong>. The signup_date and notes variables, while not relevant to this report, indicate when i customer signed up and sore simple notes about interactions with the customer respectively. To summarise, the dataset contains on how marketing and engagemnt relate to purchasing behaviour amongst individuals.</p>
+<section id="cleaning-process-summary" class="level4">
+<h4 class="anchored" data-anchor-id="cleaning-process-summary">Cleaning Process Summary</h4>
+<p>In order to clean the dataset, the following process was implemented:</p>
+<ol type="1">
+<li><p>The data was thorougly inspected using functions such as <code>head()</code>, <code>glimpse()</code>, <code>str()</code>, <code>names()</code>, <code>nrow()</code>, <code>ncol()</code>, <code>unique()</code>, and <code>table()</code> to understand the structure of the data, identify any duplicates or inconsistencies.</p></li>
+<li><p>From this, <strong>notes</strong> and <strong>signup_date</strong> were found to be inconsistent and needed to be cleaned, while <strong>visits</strong>, not necessarily needing to be altered, would be smoother if changed from numeric to integer.</p></li>
+<li><p>The following steps were saved into a new dataset called <code>cleaned_dataset</code> to ensure that the original data was preserved and could be referred back to if needed:</p>
+<ol type="a">
+<li><p><strong>notes</strong> were cleaned by standardising the entries to NA where they were previously recorded as a mix of “N/A” and the expected NA. This was done using the <code>na_if()</code> function.</p></li>
+<li><p><strong>signup_date</strong> was cleaned by standardising the date format using the <code>parse_date_time()</code> function from the lubridate package. It allowed for multiple formats to be parsed and converted to a consistent date format. There were around 3 entries that couldn’t be parsed but were left as is since the variable isn’t a category of interest.</p></li>
+<li><p><strong>visits</strong> were converted from numeric to integer using the <code>as.integer()</code>. This was done to ensure that the data type properly reflected the nature of the variable.</p></li>
+</ol></li>
+</ol>
+</section>
 </section>
 <section id="results" class="level2">
 <h2 class="anchored" data-anchor-id="results">Results</h2>

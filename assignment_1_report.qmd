@@ -72,6 +72,22 @@ str(cleaned_dataset)
 
 Investigation shows that the data consists of customer records that assign each individual their own unique **customer_id**. Each customer has their **marketing_spend** (marketing expenditure), **purchase_amount**, **segment**, **signup_date**, **notes** on interactions and number of **visits** (engagement count) recorded. The segment variable splits customers into three different groups which allows for comparison: **consumer**, **smb** and **enterprise**. The signup_date and notes variables, while not relevant to this report, indicate when i customer signed up and sore simple notes about interactions with the customer respectively. To summarise, the dataset contains on how marketing and engagemnt relate to purchasing behaviour amongst individuals. 
 
+#### Cleaning Process Summary
+In order to clean the dataset, the following process was implemented: 
+
+1. The data was thorougly inspected using functions such as `head()`, `glimpse()`, `str()`, `names()`, `nrow()`, `ncol()`, `unique()`, and `table()` to understand the structure of the data, identify any duplicates or inconsistencies.
+
+2. From this, **notes** and **signup_date** were found to be inconsistent and needed to be cleaned, while **visits**, not necessarily needing to be altered, would be smoother if changed from numeric to integer.
+
+3. The following steps were saved into a new dataset called `cleaned_dataset` to ensure that the original data was preserved and could be referred back to if needed:
+
+    a. **notes** were cleaned by standardising the entries to NA where they were previously recorded as a mix of "N/A" and the expected NA. This was done using the `na_if()` function.
+
+    b. **signup_date** was cleaned by standardising the date format using the `parse_date_time()` function from the lubridate package. It allowed for multiple formats to be parsed and converted to a consistent date format. There were around 3 entries that couldn't be parsed but were left as is since the variable isn't a category of interest.
+
+    c. **visits** were converted from numeric to integer using the `as.integer()`. This was done to ensure that the data type properly reflected the nature of the variable.
+
+
 
 ## Results
 Using visualisations of the data, discuss the answer to your research questions. You must:
